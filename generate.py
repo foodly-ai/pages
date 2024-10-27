@@ -1,9 +1,19 @@
 import csv
 import os
+import re
 
 # Create the output directory if it doesn't exist
 output_dir = 'products'
 os.makedirs(output_dir, exist_ok=True)
+
+# Function to clean the product title
+def clean_title(title):
+    # Remove non-English characters and special characters
+    cleaned_title = re.sub(r'[^a-zA-Z0-9\s\-]', '', title)
+    # Replace spaces with dashes
+    cleaned_title = cleaned_title.replace(" ", "-")
+    # Truncate to 90 characters
+    return cleaned_title[:90]
 
 # Open the CSV file
 with open("amazon_products.csv", newline='', encoding='utf-8') as csvfile:
@@ -18,16 +28,16 @@ with open("amazon_products.csv", newline='', encoding='utf-8') as csvfile:
     # Iterate over the rows in the CSV file
     for i, row in enumerate(reader):
         # Define parameters based on CSV structure
-        asin = row[0]
         product_title = row[1]
         image_url = row[2]
         product_url = row[3]
         price = float(row[6])
 
+        # Clean the product title to create a valid filename
+        filename = clean_title(product_title)
+
         # Prepare the HTML content
         html_content = f"""
-
-        
 <div class="container">
     <div class="product">
         <div class="product-image">
@@ -74,15 +84,16 @@ with open("amazon_products.csv", newline='', encoding='utf-8') as csvfile:
         </div>
     </div>
 </div>
-
         """
 
-        # Save the HTML content to a file named 'asin.html'
-        file_path = os.path.join(output_dir, f'{product_title.replace(" ","-").replace("/","").lower()[:100]}.html')
+        # Create the full file path using the cleaned title
+        file_path = os.path.join(output_dir, f'{filename}.html')
+
+        # Save the HTML content to the file
         with open(file_path, 'w', encoding='utf-8') as html_file:
             html_file.write(html_content)
 
         print(f"Saved {file_path}")  # Print confirmation
 
-        if i == 100000:  # Stop after processing 5 products
+        if i == 100000:  # Stop after processing 100,000 products
             break
