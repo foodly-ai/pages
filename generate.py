@@ -78,7 +78,7 @@ with open("amazon_products.csv", newline='', encoding='utf-8') as csvfile:
         """
 
         # Save the HTML content to a file named 'asin.html'
-        file_path = os.path.join(output_dir, f'{asin}.html')
+        file_path = os.path.join(output_dir, f'{product_title.replace(" ","-").replace("/","").lower()}.html')
         with open(file_path, 'w', encoding='utf-8') as html_file:
             html_file.write(html_content)
 
