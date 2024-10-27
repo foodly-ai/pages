@@ -5,34 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foodly.ai Domain for Sale</title>
     <style>
+        @keyframes backgroundAnimation {
+            0% { background-color: #ff9a9e; }
+            25% { background-color: #fad0c4; }
+            50% { background-color: #fbc2eb; }
+            75% { background-color: #a6c1ee; }
+            100% { background-color: #ff9a9e; }
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            animation: backgroundAnimation 10s ease infinite;
             color: #333;
             text-align: center;
         }
+
         header {
-            background-color: #4CAF50;
+            background-color: rgba(76, 175, 80, 0.8);
             color: white;
             padding: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
+
         h1 {
             margin: 0;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
+
         .content {
             padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            max-width: 600px;
         }
+
+        h2 {
+            color: #d9534f;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
         .price {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             color: #d9534f;
+            animation: pulse 1.5s infinite;
         }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
         .contact {
             margin-top: 20px;
             font-size: 18px;
         }
+
+        .contact a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact a:hover {
+            text-decoration: underline;
+        }
+
         footer {
             margin-top: 40px;
             font-size: 14px;
@@ -57,7 +102,7 @@
 </div>
 
 <footer>
-    <p>&copy; 2024 Foodly.ai</p>
+    <p>&copy; 2024 Foodly.ai | Owned by Abdellatif</p>
 </footer>
 
 </body>
