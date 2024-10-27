@@ -13,7 +13,7 @@ with open(sitemap_file, 'w', encoding='utf-8') as sitemap:
         # Check if the file is an HTML file
         if filename.endswith('.html'):
             # Create the URL format (assuming the base URL is http://example.com/pages/)
-            product_url = f"http://example.com/{product_dir}/{filename}"
+            product_url = f"https://foodly.ai/{product_dir}/{filename}"
             # Write the product URL to the sitemap file
             sitemap.write(product_url + '\n')
 

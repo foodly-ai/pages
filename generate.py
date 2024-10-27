@@ -78,11 +78,11 @@ with open("amazon_products.csv", newline='', encoding='utf-8') as csvfile:
         """
 
         # Save the HTML content to a file named 'asin.html'
-        file_path = os.path.join(output_dir, f'{product_title.replace(" ","-").replace("/","").lower()}.html')
+        file_path = os.path.join(output_dir, f'{product_title.replace(" ","-").replace("/","").lower()[:100]}.html')
         with open(file_path, 'w', encoding='utf-8') as html_file:
             html_file.write(html_content)
 
         print(f"Saved {file_path}")  # Print confirmation
 
-        if i == 10000:  # Stop after processing 5 products
+        if i == 100000:  # Stop after processing 5 products
             break
