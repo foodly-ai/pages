@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Product Scraper</title>
+</head>
+<body>
+    <h1>Amazon Product Scraper</h1>
+    <input type="text" id="asinInput" placeholder="Enter ASIN">
+    <button id="scrapeButton">Scrape Product</button>
+    <div id="productDetails"></div>
+
+    <script>
+        document.getElementById('scrapeButton').addEventListener('click', async () => {
+            const asin = document.getElementById('asinInput').value;
+            const url = `https://www.amazon.com/dp/${asin}`;
+
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+                }
+            });
+
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // Scraping the product details
+            const title = doc.getElementById('productTitle')?.innerText?.trim() || 'Title not found';
+            const price = doc.getElementById('priceblock_ourprice')?.innerText?.trim() || doc.getElementById('priceblock_dealprice')?.innerText?.trim() || 'Price not found';
+            const description = doc.getElementById('productDescription')?.innerText?.trim() || 'Description not found';
+
+            // Display the product details
+            const productDetailsDiv = document.getElementById('productDetails');
+            productDetailsDiv.innerHTML = `
+                <h2>Product Details</h2>
+                <p><strong>Title:</strong> ${title}</p>
+                <p><strong>Price:</strong> ${price}</p>
+                <p><strong>Description:</strong> ${description}</p>
+            `;
+        });
+    </script>
+</body>
+</html>
