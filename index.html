@@ -3,107 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foodly.ai Domain for Sale</title>
+    <title>Foodly.ai - Coming Soon</title>
     <style>
-        @keyframes backgroundAnimation {
-            0% { background-color: #ff9a9e; }
-            25% { background-color: #fad0c4; }
-            50% { background-color: #fbc2eb; }
-            75% { background-color: #a6c1ee; }
-            100% { background-color: #ff9a9e; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
 
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            animation: backgroundAnimation 10s ease infinite;
-            color: #333;
-            text-align: center;
-        }
-
-        header {
-            background-color: rgba(76, 175, 80, 0.8);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ff9966, #ff5e62);
             color: white;
-            padding: 20px 0;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 2.5em;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-        }
-
-        .content {
+            text-align: center;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            margin: 20px auto;
-            max-width: 600px;
         }
 
-        h2 {
-            color: #d9534f;
-            font-size: 2em;
-            margin-bottom: 10px;
+        .container {
+            max-width: 800px;
         }
 
-        .price {
-            font-size: 28px;
+        .logo {
+            font-size: 3.5rem;
             font-weight: bold;
-            color: #d9534f;
-            animation: pulse 1.5s infinite;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .description {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 100px;
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            opacity: 0.8;
         }
 
         .contact {
-            margin-top: 20px;
-            font-size: 18px;
+            font-size: 1.2rem;
+            margin-top: 40px;
         }
 
         .contact a {
-            color: #4CAF50;
+            color: white;
             text-decoration: none;
-            font-weight: bold;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+            transition: border-color 0.3s;
         }
 
         .contact a:hover {
-            text-decoration: underline;
+            border-color: white;
         }
 
-        footer {
-            margin-top: 40px;
-            font-size: 14px;
-            color: #777;
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .countdown {
+                flex-wrap: wrap;
+            }
+            .countdown-item {
+                min-width: 80px;
+            }
+            .logo {
+                font-size: 2.5rem;
+            }
+            .description {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
-
-<header>
-    <h1>Foodly.ai Domain for Sale</h1>
-</header>
-
-<div class="content">
-    <h2>Your Opportunity to Own Foodly.ai!</h2>
-    <p class="price">$10,000</p>
-    <p>This premium domain is perfect for anyone looking to establish a presence in the food industry.</p>
-    
-    <div class="contact">
-        <p>Contact Admin: <a href="mailto:goodstobkal@gmail.com">goodstobkal@gmail.com</a></p>
+    <div class="container">
+        <div class="logo">Foodly.ai</div>
+        <div class="description">
+            Your personal AI-powered food recommendations engine.<br>
+            Coming soon to revolutionize your dining experience!
+        </div>
+        <div class="countdown">
+            <div class="countdown-item">
+                <div class="countdown-number" id="days">00</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="hours">00</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="minutes">00</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="seconds">00</div>
+                <div class="countdown-label">Seconds</div>
+            </div>
+        </div>
+        <div class="contact">
+            Contact us: <a href="mailto:abdellatif@foodly.ai">abdellatif@foodly.ai</a>
+        </div>
     </div>
-</div>
 
-<footer>
-    <p>&copy; 2024 Foodly.ai | Owned by Abdellatif</p>
-</footer>
+    <script>
+        function updateCountdown() {
+            const targetDate = new Date('2025-01-01T00:00:00').getTime();
+            
+            function update() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
 
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+                if (distance < 0) {
+                    clearInterval(timer);
+                    document.querySelector('.countdown').innerHTML = '<h2>We are live!</h2>';
+                }
+            }
+
+            update();
+            const timer = setInterval(update, 1000);
+        }
+
+        updateCountdown();
+    </script>
 </body>
 </html>
