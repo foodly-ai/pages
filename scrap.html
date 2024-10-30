@@ -12,34 +12,65 @@
     <div id="productDetails"></div>
 
     <script>
+        const CORS_PROXIES = [
+            'https://api.allorigins.win/get?url=',
+            'https://corsproxy.io/?',
+            'https://proxy.cors.sh/'
+        ];
+
+        const commonHeaders = {
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        };
+
+        async function tryFetchWithProxy(url) {
+            for (const proxyUrl of CORS_PROXIES) {
+                try {
+                    const response = await fetch(proxyUrl + encodeURIComponent(url), {
+                        headers: commonHeaders
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    return data.contents || data.response || data;
+                } catch (error) {
+                    console.error(`Error with proxy ${proxyUrl}:`, error);
+                }
+            }
+            throw new Error('All proxy requests failed');
+        }
+
         document.getElementById('scrapeButton').addEventListener('click', async () => {
             const asin = document.getElementById('asinInput').value;
             const url = `https://www.amazon.com/dp/${asin}`;
 
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-                }
-            });
+            try {
+                const html = await tryFetchWithProxy(url);
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
 
-            const html = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
+                // Scraping the product details
+                const title = doc.getElementById('productTitle')?.innerText?.trim() || 'Title not found';
+                const price = doc.getElementById('priceblock_ourprice')?.innerText?.trim() || 
+                              doc.getElementById('priceblock_dealprice')?.innerText?.trim() || 
+                              'Price not found';
+                const description = doc.getElementById('productDescription')?.innerText?.trim() || 'Description not found';
 
-            // Scraping the product details
-            const title = doc.getElementById('productTitle')?.innerText?.trim() || 'Title not found';
-            const price = doc.getElementById('priceblock_ourprice')?.innerText?.trim() || doc.getElementById('priceblock_dealprice')?.innerText?.trim() || 'Price not found';
-            const description = doc.getElementById('productDescription')?.innerText?.trim() || 'Description not found';
-
-            // Display the product details
-            const productDetailsDiv = document.getElementById('productDetails');
-            productDetailsDiv.innerHTML = `
-                <h2>Product Details</h2>
-                <p><strong>Title:</strong> ${title}</p>
-                <p><strong>Price:</strong> ${price}</p>
-                <p><strong>Description:</strong> ${description}</p>
-            `;
+                // Display the product details
+                const productDetailsDiv = document.getElementById('productDetails');
+                productDetailsDiv.innerHTML = `
+                    <h2>Product Details</h2>
+                    <p><strong>Title:</strong> ${title}</p>
+                    <p><strong>Price:</strong> ${price}</p>
+                    <p><strong>Description:</strong> ${description}</p>
+                `;
+            } catch (error) {
+                console.error('Error fetching product details:', error);
+                document.getElementById('productDetails').innerText = 'Failed to fetch product details.';
+            }
         });
     </script>
 </body>
