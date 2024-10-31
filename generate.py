@@ -53,6 +53,6 @@ with open("/root/.cache/kagglehub/datasets/asaniczka/amazon-products-dataset-202
         with open(file_path, 'w', encoding='utf-8') as html_file:
             html_file.write(html_content)
 
-        if i == 50000:  # Stop after processing 100,000 products
+        if i == 100000:  # Stop after processing 100,000 products
             break
         #break
